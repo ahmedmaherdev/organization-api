@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/organization-db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=your_jwt_secret_key
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:5
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:6
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  mongo_data:
