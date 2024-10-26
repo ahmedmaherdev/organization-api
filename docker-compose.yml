@@ -5,10 +5,13 @@ services:
     ports:
       - "8080:3000"
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/organization-db
-      - REDIS_HOST=redis
+      - PORT=3000  # Make sure your NestJS app runs on the default port 3000
+      - JWT_SECRET=GvefYvscgGzHjxjPfXug3XZWxxoF854z
+      - JWT_EXPIRATION=1h
+      - JWT_REFRESH_EXPIRATION=7d
+      - MONGO_URI=mongodb://mongo:27017/organization_db  # Use service name 'mongo'
+      - REDIS_HOST=redis  # Use service name 'redis'
       - REDIS_PORT=6379
-      - JWT_SECRET=your_jwt_secret_key
     depends_on:
       - mongo
       - redis
